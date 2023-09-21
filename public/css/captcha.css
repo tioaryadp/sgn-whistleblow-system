@@ -1,0 +1,42 @@
+.captcha-box{
+    margin: 15px 0px;
+}
+
+.captcha-box .preview{
+    color: #162938;
+    width: 240px;
+    text-align: center;
+    height: 54px;
+    line-height: 40px;
+    letter-spacing: 8px;
+    border: 1px dashed #162938;
+}
+
+.captcha-box .preview span{
+    display: inline-block;
+    user-select: none;
+}
+
+.captcha-box .preview span img{
+    width: 180px;
+    height: 54px;
+}
+
+.captcha-box .captcha-form{
+    display: flex;
+}
+
+.captcha-box .captcha-form input{
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #162938;
+}
+
+.captcha-box .captcha-form .captcha-refresh{
+    width: 40px;
+    border: none;
+    outline: none;
+    background: #162938;
+    color: #EEE;
+    cursor: pointer;
+}

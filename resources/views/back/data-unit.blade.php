@@ -1,0 +1,28 @@
+@extends('back.back-master')
+
+@section('judul_halaman', 'Master Unit')
+
+@section('back-konten')
+<div class="account_list">
+    <a class="tombol" style="float: left;" href="/master">Kembali</a>
+    <a class="tombol" href="/tambah-unit">+ Tambah Unit</a>
+    <table border="1" class="table">
+        <tr>
+            <th>UnitID</th>
+            <th>Nama Unit</th>
+            <th>Action</th>
+        </tr>
+        @foreach($unit as $units)
+        <tr>
+            <td>{{ $units->unit_id }}</td>
+            <td>{{ $units->unit_nama }}</td>
+            <td>
+                <a class="edit" href="/edit-unit-{{ $units->unit_id }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a class="delete" href="/delete-unit-{{ $units->unit_id }}"><i class="fa-solid fa-trash"></i></i></a>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+{{ $unit->links() }}
+@endsection
