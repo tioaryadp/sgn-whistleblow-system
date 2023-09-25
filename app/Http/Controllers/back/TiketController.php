@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 use App\Mail\TiketEmail;
+use App\Mail\StatusEmail;
 use Illuminate\Support\Facades\Mail;
 
 class TiketController extends Controller
@@ -173,6 +174,10 @@ class TiketController extends Controller
         DB::table('tiket')->where('tiket.tiket_id',$request->id)->update([
             'tiket.tiket_status' => $request->tiket_status
         ]);
+        $id_tiket = $request->id;
+        $email = DB::table('tiket')->select('komunikasi_email')->where('tiket.tiket_id', $id_tiket)
+            ->leftJoin("komunikasi", "tiket.tiket_komunikasi", "=", "komunikasi.komunikasi_id")->first();
+        Mail::to($email->komunikasi_email)->send(new StatusEmail($id_tiket));
         return redirect('tiket');
     }
 

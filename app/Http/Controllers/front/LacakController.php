@@ -13,6 +13,7 @@ class LacakController extends Controller{
         $no_tiket = $request->no_tiket;
         $tiket = DB::table('tiket')
         ->leftJoin("identitas", "tiket.tiket_identitas", "=", "identitas.identitas_id")
+        ->leftJoin("laporan", "tiket.tiket_laporan", "=", "laporan.laporan_id")
         ->leftJoin("provinsi", "identitas.identitas_provinsi", "=", "provinsi.provinsi_id")
         ->leftJoin("kota", "identitas.identitas_kota", "=", "kota.kota_id")
         ->leftJoin("kategori", "tiket.tiket_kategori", "=", "kategori.kategori_id")

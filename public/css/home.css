@@ -38,8 +38,7 @@ body{
 }
 
 section{
-    min-height: 100vh;
-    padding: 0 9%;
+    padding: 50px 9%;
 }
 
 header{
@@ -240,10 +239,11 @@ header .bg-nav{
 }
 
 .sci{
-    position: absolute;
+    position: fixed;
     bottom: 2.5rem;
     display: flex;
     margin-left: -2rem;
+    z-index: 100;
 }
 
 .sci a{

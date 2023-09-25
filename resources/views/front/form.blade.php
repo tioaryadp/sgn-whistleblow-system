@@ -4,23 +4,43 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/captcha.css">
+    <link rel="stylesheet" href="css/toast.css">
+    <style>
+        header{
+            position: absolute !important;
+        }
+        label span{
+            color: red;
+        }
+        .toast .toast-progress:before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            background-color: red !important;
+        }
+    </style>
 </head>
 @if (count($errors) > 0)
-<div id="message">
-    <div style="padding: 5px">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <label>
-                <input type="checkbox" class="alertCheckbox" autocomplete="off">
-                <div class="alert error">
-                    <span class="alertText"> {{ $error }}
-                    <br class="clear"/></span>
+<script>
+    var successMessage = 'success';
+</script>
+    @foreach ($errors->all() as $error)
+        <div class="toast" style="top: 100px">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-xmark error"></i>
+                <div class="toast-message">
+                    <span class="toast-text text-1">Warning!</span>
+                    <span class="toast-text text-2">{{ $error }}</span>
                 </div>
-            </label>
-            @endforeach
-        </ul>
-    </div>
-</div>
+            </div>
+            <i class="fa-solid fa-xmark close"></i>
+            <div class="toast-progress"></div>
+        </div>
+    @endforeach
+
 @endif
 
 
@@ -51,7 +71,7 @@
                     <select name="identitas_provinsi" id="identitas_provinsi">
                         <option value="none" selected disabled hidden>--Pilih Provinsi--</option>
                         @foreach ($provinsi as $provinsi)
-                            <option value="{{ $provinsi->provinsi_id }}"> {{ $provinsi->provinsi_nama }} </option>
+                           <option value="{{ $provinsi->provinsi_id }}"  {{ (old('identitas_provinsi') == $provinsi->provinsi_id) ? 'selected' : ''}}> {{ $provinsi->provinsi_nama }} </option>
                         @endforeach
                     </select>
                     <label>Provinsi</label>
@@ -77,14 +97,14 @@
                     <label>Tanggal Tatap Muka</label>
                 </div>
                 <div class="radio-box">
-                    <label class="lbl">Surat</label>
+                    <label class="lbl">Surat<span>*</span></label>
                     <div class="form-grid-double">
                         <div>
-                            <input type="radio" name="komunikasi_surat" value="YA">
+                            <input type="radio" name="komunikasi_surat" value="YA" {{ (old('komunikasi_surat') == "YA") ? 'checked' : ''}}>
                             <label for="YA">YA</label>
                         </div>
                         <div>
-                            <input type="radio" name="komunikasi_surat" value="TIDAK" checked>
+                            <input type="radio" name="komunikasi_surat" value="TIDAK" {{ (old('komunikasi_surat') == "TIDAK") ? 'checked' : ''}}>
                             <label for="TIDAK">TIDAK</label>
                         </div>
                     </div>
@@ -102,7 +122,7 @@
                 <select name="tiket_kategori">
                     <option value="none" selected disabled hidden>--Pilih Kategori--</option>
                     @foreach ($kategori as $kategori)
-                        <option value="{{ $kategori->kategori_id }}"> {{ $kategori->kategori_detail }} </option>
+                        <option value="{{ $kategori->kategori_id }}" {{ (old('tiket_kategori') == $kategori->kategori_id) ? 'selected' : ''}}> {{ $kategori->kategori_detail }} </option>
                     @endforeach
                 </select>
                 <label>Kategori Laporan<span>*</span></label>
@@ -136,7 +156,7 @@
                     <select name="laporan_unit">
                         <option value="none" selected disabled hidden>--Pilih Unit--</option>
                         @foreach ($unit as $unit)
-                            <option value="{{ $unit->unit_id }}"> {{ $unit->unit_nama }} </option>
+                            <option value="{{ $unit->unit_id }}" {{ (old('laporan_unit') == $unit->unit_id) ? 'selected' : ''}}> {{ $unit->unit_nama }} </option>
                         @endforeach
                     </select>
                     <label>Diunit manakah terlapor berada?<span>*</span></label>
@@ -145,7 +165,7 @@
                     <select name="laporan_unitbagian">
                         <option value="none" selected disabled hidden>--Pilih Bagian--</option>
                         @foreach ($bagian as $bagian)
-                            <option value="{{ $bagian->bagian_id }}"> {{ $bagian->bagian_nama }} </option>
+                            <option value="{{ $bagian->bagian_id }}" {{ (old('laporan_unitbagian') == $bagian->bagian_id) ? 'selected' : ''}}> {{ $bagian->bagian_nama }} </option>
                         @endforeach
                     </select>
                 </div>              
@@ -180,14 +200,14 @@
             </div>
             <div style="grid-template-columns: 29% 69%;" class="form-grid-double">
                 <div class="radio-box">
-                    <label class="lbl">Apakah anda butuh perlindungan hukum?</label>
+                    <label class="lbl">Apakah anda butuh perlindungan hukum?<span>*</span></label>
                     <div class="form-grid-double">
                         <div>
-                            <input type="radio" style="transform: translateY(35px);" name="laporan_perlindunganhukum" value="YA">
+                            <input type="radio" style="transform: translateY(35px);" name="laporan_perlindunganhukum" value="YA" {{ (old('laporan_perlindunganhukum') == "YA") ? 'checked' : ''}}>
                             <label style="transform: translateY(30px);" for="YA">YA</label>
                         </div>
                         <div>
-                            <input type="radio" style="transform: translateY(35px);" name="laporan_perlindunganhukum" value="TIDAK" checked>
+                            <input type="radio" style="transform: translateY(35px);" name="laporan_perlindunganhukum" value="TIDAK" {{ (old('laporan_perlindunganhukum') == "TIDAK") ? 'checked' : ''}}>
                             <label style="transform: translateY(30px);" for="TIDAK">TIDAK</label>
                         </div>
                     </div>
@@ -213,7 +233,7 @@
         </div>
         <div class="form-box submit">
             <div class="captcha-box" style="width: 50%; margin: auto;">
-                <label style="font-size: 1.5rem;">Enter Captcha</label>
+                <label style="font-size: 1.5rem;">Enter Captcha<span>*</span></label>
                 <div class="preview"><span>{!! captcha_img('math') !!}</span></div>
                 <div class="captcha-form">
                     <input type="text" id="captcha" name="captcha" placeholder="Enter captcha text">
@@ -229,6 +249,7 @@
 </main>
 <br>
 <br>
+<script type="text/javascript" src="js/toast.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>

@@ -1,6 +1,31 @@
 @extends('front.front-master')
 @section('front-konten')
+<head>
+    <link rel="stylesheet" href="css/toast.css">
+    <style>
+        header{
+            position: static !important;
+        }
+    </style>
+</head>
+    <script>
+        var successMessage = null;
+        @if(Session::has('success'))
+            var successMessage = "{{ Session::get('success') }}";
+        @endif
+    </script>
     <section class="home">
+        <div class="toast">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-check check"></i>
+                <div class="toast-message">
+                    <span class="toast-text text-1">Success!</span>
+                    <span class="toast-text text-2">Laporan anda telah berhasil disimpan</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close"></i>
+            <div class="toast-progress"></div>
+        </div>
         <div class="content">
             <h3><span>
                     @foreach($judul_beranda as $judul_beranda)
@@ -43,4 +68,5 @@
             </div>            
         </div>
     </section>
+    <script type="text/javascript" src="js/toast.js"></script>
 @endsection

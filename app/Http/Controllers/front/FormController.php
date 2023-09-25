@@ -40,6 +40,7 @@ class FormController extends Controller{
             'komunikasi_nomorhp' => 'numeric|required',
             'komunikasi_email' => 'required|email|max:50',
             'komunikasi_lainnya' => 'max:50',
+            'komunikasi_surat' => 'required',
             'pendukung_link' => 'max:250',
             'laporan_kejadian' => 'required|max:50',
             'laporan_tanggal' => 'required',
@@ -112,7 +113,7 @@ class FormController extends Controller{
         $tujuan_upload = 'file-upload';
         $nama_file = NULL;
         if(!empty($file)){
-            $nama_file = 'WBS_FILE #'.$id_tiket.'.'.$file->getClientOriginalExtension();
+            $nama_file = 'WBS_FILE_'.$id_tiket.'.'.$file->getClientOriginalExtension();
             $file->move($tujuan_upload, $nama_file);
         }
         DB::table('pendukung')->insert([
@@ -120,6 +121,6 @@ class FormController extends Controller{
             'pendukung_link' => $request->pendukung_link
         ]);
         Mail::to($request->komunikasi_email)->send(new TiketEmail($id_tiket));
-        return redirect('/');
+        return redirect('/')->with(['success' => 'Report is successfully saved']);
     }
 }
